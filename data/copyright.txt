@@ -1,0 +1,24 @@
+Latin keyword finder
+
+Copyright information of files that cannot hold the copyright information within themselves for technical reasons, ex. CSV formatted files.
+
+
+This is the copyright information of the generated CSV files in the "data/*/generated" directories
+@author    Michel Corne <mcorne@yahoo.com>
+@copyright 2012 Michel Corne
+@license   http://opensource.org/licenses/MIT MIT License
+
+
+This is the copyright information of the WORD.OUT formatted files called "words-info.txt" in the "data/*/generated" directories
+@copyright 2006 William Whitaker <whitaker@erols.com>
+@see       http://web.archive.org/web/20110719231010/http://users.erols.com/whitaker/words.htm
+
+
+This is the copyright information of the Latin texts extracted from the Nova Vulgata stored in "data/*/latin.csv" files
+@copyright 2003 Libreria Editrice Vaticana
+@see       http://www.vatican.va/archive/bible/nova_vulgata/documents/nova-vulgata_index_lt.html
+
+
+This is the copyright information of the English texts extracted from the New American Bible stored in "data/*/english.csv" files
+@copyright 2002 United States Conference of Catholic Bishops
+@see       http://www.vatican.va/archive/ENG0839/_INDEX.HTM

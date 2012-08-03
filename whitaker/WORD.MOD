@@ -1,0 +1,16 @@
+TRIM_OUTPUT                       Y
+HAVE_OUTPUT_FILE                  Y
+WRITE_OUTPUT_TO_FILE              Y
+DO_UNKNOWNS_ONLY                  N
+WRITE_UNKNOWNS_TO_FILE            N
+IGNORE_UNKNOWN_NAMES              Y
+IGNORE_UNKNOWN_CAPS               Y
+DO_COMPOUNDS                      N
+DO_FIXES                          N
+DO_TRICKS                         N
+DO_DICTIONARY_FORMS               Y
+SHOW_AGE                          N
+SHOW_FREQUENCY                    N
+DO_EXAMPLES                       N
+DO_ONLY_MEANINGS                  N
+DO_STEMS_FOR_UNKNOWN              N
