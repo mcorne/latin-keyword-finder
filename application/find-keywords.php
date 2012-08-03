@@ -4,6 +4,8 @@
  *
  * Command to find the keywords (most frequent headwords) in a text
  *
+ * Ex. php find-keywords.php gospel-of-john
+ *
  * @author    Michel Corne <mcorne@yahoo.com>
  * @copyright 2012 Michel Corne
  * @license   http://opensource.org/licenses/MIT MIT License
@@ -15,6 +17,7 @@ require_once 'count-words.php';
 require_once 'get-headwords.php';
 require_once 'get-keywords.php';
 require_once 'get-words-info.php';
+require_once 'make-analysis-template.php';
 
 /**
  * Main function to find keywords
@@ -32,6 +35,8 @@ function exec_find_keywords($text_title)
     exec_count_headwords($text_title);
     echo "\n";
     exec_get_keywords($text_title);
+    echo "\n";
+    exec_make_analysis_template($text_title);
 }
 
 // runs the main function if this is the file of the command being run

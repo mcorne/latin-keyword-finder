@@ -4,6 +4,8 @@
  *
  * Command to get the Whitaker WORD.OUT file (the words information) for a list of words
  *
+ * Ex. php get-words-info.php gospel-of-john
+ *
  * @author    Michel Corne <mcorne@yahoo.com>
  * @copyright 2012 Michel Corne
  * @license   http://opensource.org/licenses/MIT MIT License

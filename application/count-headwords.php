@@ -4,6 +4,8 @@
  *
  * Command to count the frequency of headwords in a text
  *
+ * Ex. php count-headwords.php gospel-of-john
+ *
  * @author    Michel Corne <mcorne@yahoo.com>
  * @copyright 2012 Michel Corne
  * @license   http://opensource.org/licenses/MIT MIT License

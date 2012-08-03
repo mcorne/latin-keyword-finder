@@ -4,6 +4,8 @@
  *
  * Command to get the headwords of a text
  *
+ * Ex. php get-headwords.php gospel-of-john
+ *
  * @author    Michel Corne <mcorne@yahoo.com>
  * @copyright 2012 Michel Corne
  * @license   http://opensource.org/licenses/MIT MIT License
