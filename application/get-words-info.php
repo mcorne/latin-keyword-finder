@@ -4,8 +4,6 @@
  *
  * Command to get the Whitaker WORD.OUT file (the words information) for a list of words
  *
- * Ex. php get-words-info.php gospel-of-john
- *
  * @author    Michel Corne <mcorne@yahoo.com>
  * @copyright 2012 Michel Corne
  * @license   http://opensource.org/licenses/MIT MIT License
@@ -20,7 +18,7 @@ require_once 'common.php';
  */
  function exec_get_words_info($text_title)
 {
-    echo "getting words info...\n";
+    echo_command_title('getting words info');
 
     if (! chdir(__DIR__ . '/../whitaker')) {
         throw new Exception('cannot change directory');
@@ -44,7 +42,7 @@ require_once 'common.php';
     $has_content_changed = move_words_info(__DIR__ . "/../data/$text_title/generated/words-info.txt");
 
     echo "$words_info_count words info ";
-    echo $has_content_changed? '(content has changed)' : '(content has not changed)';
+    echo_has_content_changed($has_content_changed);
 }
 
 /**
@@ -77,6 +75,3 @@ function move_words_info($words_info_filename)
 
     return $has_content_changed;
 }
-
-// runs the main function if this is the file of the command being run
-exec_if_command(__FILE__);

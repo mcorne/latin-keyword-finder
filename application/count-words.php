@@ -4,8 +4,6 @@
  *
  * Command to count the frequency of words in a text
  *
- * Ex. php count-words.php gospel-of-john
- *
  * @author    Michel Corne <mcorne@yahoo.com>
  * @copyright 2012 Michel Corne
  * @license   http://opensource.org/licenses/MIT MIT License
@@ -80,7 +78,7 @@ function count_words($rows)
  */
 function exec_count_words($text_title)
 {
-    echo "counting words...\n";
+    echo_command_title('counting words');
 
     $rows = read_csv(__DIR__ . "/../data/$text_title/source/latin.csv", CONTENT_TO_LOWER);
     $words_count = count_words($rows);
@@ -91,7 +89,7 @@ function exec_count_words($text_title)
     write_file(__DIR__ . "/../data/$text_title/generated/words.txt", $words);
 
     echo count($words_count) . ' words ';
-    echo $has_content_changed? '(content has changed)' : '(content has not changed)';
+    echo_has_content_changed($has_content_changed);
 }
 
 /**
@@ -135,6 +133,3 @@ function get_words($words_count)
 
     return $words;
 }
-
-// runs the main function if this is the file of the command being run
-exec_if_command(__FILE__);

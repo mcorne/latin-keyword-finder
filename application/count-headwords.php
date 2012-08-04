@@ -4,8 +4,6 @@
  *
  * Command to count the frequency of headwords in a text
  *
- * Ex. php count-headwords.php gospel-of-john
- *
  * @author    Michel Corne <mcorne@yahoo.com>
  * @copyright 2012 Michel Corne
  * @license   http://opensource.org/licenses/MIT MIT License
@@ -100,7 +98,7 @@ function count_headwords($words_count, $headwords)
  */
 function exec_count_headwords($text_title)
 {
-    echo "counting headwords...\n";
+    echo_command_title('counting headwords');
 
     $words_count = read_csv(__DIR__ . "/../data/$text_title/generated/words-count.csv", INDEX_ROWS);
     $headwords = read_csv(__DIR__ . "/../data/$text_title/generated/headwords.csv", INDEX_ROWS);
@@ -115,11 +113,8 @@ function exec_count_headwords($text_title)
 
     $headwords_count = calculate_ratio($headwords_count, $headwords_total);
     $headwords_count = sort_rows($headwords_count, 'count', SORT_DESC);
-
     $has_content_changed = write_csv(__DIR__ . "/../data/$text_title/generated/headwords-count.csv", $headwords_count);
-    echo count($headwords_count) . ' headwords ';
-    echo $has_content_changed? '(content has changed)' : '(content has not changed)';
-}
 
-// runs the main function if this is the file of the command being run
-exec_if_command(__FILE__);
+    echo count($headwords_count) . ' headwords ';
+    echo_has_content_changed($has_content_changed);
+}

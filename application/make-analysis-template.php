@@ -4,8 +4,6 @@
  *
  * Command to make the analysis template for the keywords
  *
- * Ex. php make-analysis-template.php gospel-of-john
- *
  * @author    Michel Corne <mcorne@yahoo.com>
  * @copyright 2012 Michel Corne
  * @license   http://opensource.org/licenses/MIT MIT License
@@ -13,25 +11,24 @@
 
 require_once 'common.php';
 
-define('VERSES_PER_KEYWORD', 10);
-
 /**
  * Main function to make the analysis template
  *
- * @param string $text_title the title of the text to process
+ * @param string $text_title         the title of the text to process
+ * @param int    $verses_per_keyword maximum number of verses per keyword
  */
-function exec_make_analysis_template($text_title)
+function exec_make_analysis_template($text_title, $verses_per_keyword = null)
 {
-    echo "making analysis template...\n";
+    echo_command_title('making analysis template');
 
     $keywords = read_csv(__DIR__ . "/../data/$text_title/generated/keywords.csv");
     $latin_text = read_csv(__DIR__ . "/../data/$text_title/source/latin.csv");
     $english_text = read_csv(__DIR__ . "/../data/$text_title/source/english.csv", INDEX_ROWS, 'number');
-    $analysis_template = make_analysis_template($keywords, $latin_text, $english_text);
+    $analysis_template = make_analysis_template($keywords, $latin_text, $english_text, $verses_per_keyword);
 
     $has_content_changed = write_csv(__DIR__ . "/../data/$text_title/generated/analysis-template.csv", $analysis_template);
     echo count($analysis_template) . ' verses ';
-    echo $has_content_changed? '(content has changed)' : '(content has not changed)';
+    echo_has_content_changed($has_content_changed);
 }
 
 /**
@@ -131,6 +128,3 @@ function slice_verses($verses, $verses_per_keyword = null)
 
     return array_slice($sliced, 0, $verses_per_keyword, true);
 }
-
-// runs the main function if this is the file of the command being run
-exec_if_command(__FILE__);

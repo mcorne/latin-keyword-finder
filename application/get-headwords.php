@@ -4,8 +4,6 @@
  *
  * Command to get the headwords of a text
  *
- * Ex. php get-headwords.php gospel-of-john
- *
  * @author    Michel Corne <mcorne@yahoo.com>
  * @copyright 2012 Michel Corne
  * @license   http://opensource.org/licenses/MIT MIT License
@@ -40,7 +38,7 @@ function convert_keys_to_lower($array)
  */
 function exec_get_headwords($text_title)
 {
-    echo "getting headwords...\n";
+    echo_command_title('getting headwords');
 
     $content = read_file(__DIR__ . "/../data/$text_title/generated/words-info.txt");
     $words_info = extract_words_info($content);
@@ -50,7 +48,7 @@ function exec_get_headwords($text_title)
     $has_content_changed = write_csv(__DIR__ . "/../data/$text_title/generated/headwords.csv", $headwords);
 
     echo count($headwords) . ' headwords ';
-    echo $has_content_changed? '(content has changed)' : '(content has not changed)';
+    echo_has_content_changed($has_content_changed);
 }
 
 /**
@@ -168,6 +166,3 @@ function get_headwords($words_info, $words)
 
     return $headwords;
 }
-
-// runs the main function if this is the file of the command being run
-exec_if_command(__FILE__);

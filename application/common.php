@@ -9,9 +9,13 @@
  * @license   http://opensource.org/licenses/MIT MIT License
  */
 
-define('CONTENT_TO_LOWER', 1);
-define('INDEX_ROWS',       2);
-define('WORD_SEPARATOR', '; ');
+define('CONTENT_TO_LOWER'  , 1);
+define('INDEX_ROWS'        , 2);
+
+define('DEFAULT_POS'       , 'ADJ,N,V');
+define('MAX_KEYWORDS'      , 50);
+define('VERSES_PER_KEYWORD', 10);
+define('WORD_SEPARATOR'    , '; ');
 
 /**
  * Makes a backup of a file
@@ -30,40 +34,24 @@ function backup_file($filename)
 }
 
 /**
- * Executes a command main function
+ * Echos the command title
  *
- * @param string $main_function_to_exec the main function name, ex. "exec_count_words"
+ * @param string $command_title the command title
  */
-function exec_command($main_function_to_exec)
+function echo_command_title($command_title)
 {
-    try {
-        $text_title = get_text_title();
-        $main_function_to_exec($text_title);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    echo str_pad($command_title . '...', 30);
 }
 
 /**
- * Excecutes the main function of a file
+ * Echos a message stating if the content has changed or not
  *
- * This function is meant to be called at the end of each command file.
- * The main function of a command file has a name based on the file name and is prefixed by "exec_".
- * Ex. exec_count_words() is the main function of count-words.php.
- *
- * The main function is executed if the file is the one of the command being run.
- * Ex. exec_count_words() is executed if "php count-words.php" is run on the command line.
- *
- * @param string $filename the file name, ex. "count-words.php"
+ * @param bool $has_content_changed true if the content has changed, false otherwise
  */
-function exec_if_command($filename)
+function echo_has_content_changed($has_content_changed)
 {
-    $command = basename($filename, '.php');
-
-    if (is_command_to_exec($command)) {
-        $main_function_to_exec = 'exec_' . str_replace('-', '_', $command);
-        exec_command($main_function_to_exec);
-    }
+    echo $has_content_changed? '(content has changed)' : '(content has not changed)';
+    echo "\n";
 }
 
 /**
@@ -123,48 +111,6 @@ function get_column_headers($rows)
 }
 
 /**
- * Returns the title of the text to process
- *
- * The title of the text is meant to be passed as the first parameter of the command line.
- *
- * @throws Exception
- * @return string the title of the text
- */
-function get_text_title()
-{
-    global $argv;
-
-    $text_titles = get_text_titles();
-
-    if (! isset($argv[1])) {
-        $title_list = implode("\n", $text_titles);
-        throw new Exception("missing text title, choose one to pass as parameter from this list:\n$title_list");
-    }
-
-    $text_title = $argv[1];
-    if (! in_array($text_title, $text_titles)) {
-        $title_list = implode("\n", $text_titles);
-        throw new Exception("invalid text title, choose one to pass as parameter from this list:\n$title_list");
-    }
-
-    return $text_title;
-}
-
-/**
- * Returns the text titles
- *
- * A text title is the name of the sub-directory in the "data" directory containing the files related to that text.
- *
- * @return string the list of text titles
- */
-function get_text_titles()
-{
-    $text_directories = glob(__DIR__ . '/../data/*', GLOB_ONLYDIR);
-
-    return array_map('basename', $text_directories);
-}
-
-/**
  * Indexes an array of rows with one of the keys
  *
  * The key is meant to be a column file header.
@@ -192,21 +138,6 @@ function index_rows($rows, $column_header = 'word')
     }
 
     return $indexed_rows;
-}
-
-/**
- * Checks if the command file currently loaded is the one of the command being run
- *
- * @param string   $command the name of the command (based on the file name being loaded)
- * @return boolean          true if the command corresponds to the file being loaded, false otherwise
- */
-function is_command_to_exec($command)
-{
-    global $argv;
-
-    $command_being_run = basename($argv[0], '.php');
-
-    return $command_being_run == $command;
 }
 
 /**
