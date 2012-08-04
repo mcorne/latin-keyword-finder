@@ -11,7 +11,7 @@
 
 require_once 'common.php';
 
-define('OPTION_A', '-W -i -l -L -k -y');
+define('OPTION_A', '-W -i -l -L -k -s -y');
 
 /**
  * The command help
@@ -20,16 +20,17 @@ $help =
 'Usage:
 -a        Options: %1$s.
 -d        Display the title of the available texts.
--l        Get the headwords (lemma) of a text.
--L        Count the headwords (lemma) of a text.
 -i        Get the words information.
 -k        Get the keywords of a text.
+-l        Get the headwords (lemma) of a text.
+-L        Count the headwords (lemma) of a text.
 -m        Maximum number of keywords to return, default: %2$s.
           Used with option -k only.
 -p        Selected parts of speech, default: %3$s.
           Available: ADJ,ADV,CONJ,INTERJ,N,NUM,PACK,PREFIX,
                      PREP,PRON,SUFFIX,SUPINE,TACKON,V,VPAR.
           Used with option -k only.
+-s        Calculate the statistics of a text.
 -t title  The title of the text to process.
 -v        Maximum number of verses per keyword to return, default: %4$s.
           Used with option -y only.
@@ -55,7 +56,7 @@ function get_text_titles()
 }
 
 try {
-    if (! $options = getopt("hadlLikm:p:t:v:Wy")) {
+    if (! $options = getopt("hadiklLm:p:st:v:Wy")) {
         throw new Exception('invalid or missing option(s)');
     }
 
@@ -90,16 +91,6 @@ try {
 
     foreach(array_keys($options) as $option) {
         switch($option) {
-            case 'l':
-                require_once 'get-headwords.php';
-                exec_get_headwords($text_title);
-                break;
-
-            case 'L':
-                require_once 'count-headwords.php';
-                exec_count_headwords($text_title);
-                break;
-
             case 'i':
                 require_once 'get-words-info.php';
                 exec_get_words_info($text_title);
@@ -110,6 +101,21 @@ try {
                 $selected_pos = isset($options['p'])? $options['p'] : null;
                 $max_keywords = isset($options['m'])? $options['m'] : null;
                 exec_get_keywords($text_title, $selected_pos, $max_keywords);
+                break;
+
+            case 'l':
+                require_once 'get-headwords.php';
+                exec_get_headwords($text_title);
+                break;
+
+            case 'L':
+                require_once 'count-headwords.php';
+                exec_count_headwords($text_title);
+                break;
+
+            case 's':
+                require_once 'calculate-statistics.php';
+                exec_calculate_statistics($text_title);
                 break;
 
             case 'W':

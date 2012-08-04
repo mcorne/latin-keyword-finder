@@ -27,6 +27,7 @@ function exec_make_analysis_template($text_title, $verses_per_keyword = null)
     $analysis_template = make_analysis_template($keywords, $latin_text, $english_text, $verses_per_keyword);
 
     $has_content_changed = write_csv(__DIR__ . "/../data/$text_title/generated/analysis-template.csv", $analysis_template);
+
     echo count($analysis_template) . ' verses ';
     echo_has_content_changed($has_content_changed);
 }

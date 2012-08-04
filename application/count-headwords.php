@@ -29,23 +29,6 @@ function calculate_ratio($rows, $total)
 }
 
 /**
- * Calculates the total of all row "count" cell
- *
- * @param array $rows the array of rows
- * @return int        the total
- */
-function calculate_total($rows)
-{
-    $total = 0;
-
-    foreach($rows as $row){
-        $total += $row['count'];
-    }
-
-    return $total;
-}
-
-/**
  * Counts the occurrences of each headword
  *
  * Adds the count of the words (lexeme) based on a given headword.

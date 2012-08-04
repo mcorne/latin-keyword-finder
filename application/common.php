@@ -34,6 +34,23 @@ function backup_file($filename)
 }
 
 /**
+ * Calculates the total of all row "count" cell
+ *
+ * @param array $rows the array of rows
+ * @return int        the total
+ */
+function calculate_total($rows)
+{
+    $total = 0;
+
+    foreach($rows as $row){
+        $total += $row['count'];
+    }
+
+    return $total;
+}
+
+/**
  * Echos the command title
  *
  * @param string $command_title the command title
@@ -159,6 +176,7 @@ function read_csv($filename, $options = 0, $column_header = 'word')
 
     $content = fix_line_endings($content);
     $lines = explode("\n", $content); // TODO: handle line feeds within a cell
+    $lines = array_filter($lines);
 
     $first_line = array_shift($lines);
     $column_headers = read_line($first_line);
